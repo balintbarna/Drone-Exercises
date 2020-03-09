@@ -68,6 +68,7 @@ class pos_node:
 		self.rate = rospy.Rate(update_interval)
 
 		# wait until everything is running
+		self.program_start_time = rospy.get_time()
 		rospy.sleep(1)
 
 	def printPos(self):
@@ -97,14 +98,22 @@ class pos_node:
 		print('Altitude:           {0}'.format(alt_text))
 		print('\n')
 	
+	def saveToFile(self):
+		filename = 'output/gps_data_%02.5f.txt' % (self.program_start_time)
+		full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (self.pos_timestamp, self.lat, self.lon, self.alt)
+		with open(filename, 'a') as file:
+			file.write(full_text)
+
 	def on_mavlink_msg(self, msg):
 		# save timestamp of last package of anything received from the drone
 		self.last_heard = rospy.get_time()
 
 	def on_mavlink_lora_pos(self, msg):
+		self.pos_timestamp = self.program_start_time - rospy.get_time()
 		self.lat = msg.lat
 		self.lon = msg.lon
 		self.alt = msg.alt
+		self.saveToFile()
 
 	def run(self):
 		# loop until shutdown
