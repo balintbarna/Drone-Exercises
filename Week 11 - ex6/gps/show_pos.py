@@ -56,6 +56,7 @@ class pos_node:
 		self.lat = 0.0
 		self.lon = 0.0
 		self.alt = 0.0
+		self.pos_timestamp = 0.0
 
 		# launch node
 		rospy.init_node('mavlink_lora_pos_simple', disable_signals = True)
@@ -94,6 +95,7 @@ class pos_node:
 			alt_text = '%.1fm ' % (self.alt)
 
 		print('Last heard:         {0}'.format(last_heard_text))
+		print('Relative time:      {0}'.format(last_heard_text))
 		print('Position:           {0}'.format(pos_text))
 		print('Altitude:           {0}'.format(alt_text))
 		print('\n')
@@ -109,7 +111,7 @@ class pos_node:
 		self.last_heard = rospy.get_time()
 
 	def on_mavlink_lora_pos(self, msg):
-		self.pos_timestamp = self.program_start_time - rospy.get_time()
+		self.pos_timestamp = rospy.get_time() - self.program_start_time
 		self.lat = msg.lat
 		self.lon = msg.lon
 		self.alt = msg.alt
