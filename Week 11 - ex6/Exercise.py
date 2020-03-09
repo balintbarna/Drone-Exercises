@@ -25,7 +25,6 @@ def kmlPlot(allLat,allLon):
     kml = kmlclass()
     kml.begin('testfile.kml', 'Example', 'Example on the use of kmlclass', 0.7)
     # altitude: use 'absolute' or 'relativeToGround'
-    
     kml.trksegbegin ('', '', kmlColor(0), 'absolute') 
     kml.pt(55.47, 10.33, 0.0)
     kml.pt(55.47, 10.34, 0.0)
@@ -33,3 +32,13 @@ def kmlPlot(allLat,allLon):
     kml.pt(55.47, 10.33, 0.0)
     kml.trksegend()
     kml.end()
+
+f = open("Week 11 - ex6/input/gps_data_1583748176.57617.txt",'r')
+
+print(f.readline().split("\n")[0].split("\t"))
+
+while True:
+    line = f.readline().split("\n")[0].split("\t")
+    if not line:
+        break
+    print(line)
