@@ -4,6 +4,7 @@ from math import pi, cos, asin, sqrt, sin
 import matplotlib.pyplot as plt
 import numpy as np
 from OldCode.exportkml import kmlclass
+from Generate_plan import plan_generator as pgen
 
 def plotPath(v1,v2):
     plt.plot(v1, v2)
@@ -69,6 +70,9 @@ def removeOutlier(file,outputName):
                         outF.write(full_text)
 
 def simplifyTrack():
+    print("Not complete")
+
+def makePlan():
     print("Not complete")
 
 kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
