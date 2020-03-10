@@ -2,11 +2,9 @@ import json
 from math import atan2, degrees
 
 class plan_generator():
-    def __init__(self, data):
-        self.data = data
-        for i in range(0, len(data)-2):
-            self.data[i].append(self.getAngle(data[i+1],data[i]))
-        self.data[len(data)-1].append(self.data[len(data)-2][2])
+    def __init__(self, allLat,allLon):
+        self.allLat = allLat
+        self.allLon = allLon
 
         self.plan = {}
         self.items = []

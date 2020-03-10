@@ -69,18 +69,32 @@ def removeOutlier(file,outputName):
                         full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
                         outF.write(full_text)
 
-def simplifyTrack():
+def simplifyTrack(file):
+    lat=[]
+    lon=[]
+    f = open(file,'r')
+    while True:
+        line = f.readline().split("\n")[0].split("\t")
+        if '' == line[0]:
+            break
+        lat.append(float(line[1]))
+        lon.append(float(line[2]))
+
+    plan = pgen(lat,lon)
+    plan.minimizeDisErr()
+
     print("Not complete")
 
 def makePlan():
     print("Not complete")
 
-kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
-kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/track2")
-removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/input/gps_data_1_clean.txt")
-removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/input/gps_data_2_clean.txt")
-kmlPlot("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/track1clean")
-kmlPlot("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/track2clean")
+#kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
+#kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/track2")
+#removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/input/gps_data_1_clean.txt")
+#removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/input/gps_data_2_clean.txt")
+#kmlPlot("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/track1clean")
+#kmlPlot("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/track2clean")
+simplifyTrack("Week 11 - ex6/input/gps_data_1_clean.txt")
 #simplifyTrack()
 
 #print(line)
