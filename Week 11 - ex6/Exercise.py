@@ -72,10 +72,13 @@ def removeOutlier(file,outputName):
     kml.trksegend()
     kml.end()
 
+def simplifyTrack():
+    print("Not complete")
 
 #kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "track1")
 #kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "track2")
-removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "clean1")
-removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "clean2")
+#removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "clean1")
+#removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "clean2")
+simplifyTrack()
 
 #print(line)
