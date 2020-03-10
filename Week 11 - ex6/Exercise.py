@@ -21,24 +21,25 @@ def kmlColor(val):
     if val <= 0.7:
         return 'green'
     
-def kmlPlot(allLat,allLon):
-    kml = kmlclass()
-    kml.begin('testfile.kml', 'Example', 'Example on the use of kmlclass', 0.7)
+def kmlPlot(file, outputName):
     # altitude: use 'absolute' or 'relativeToGround'
-    kml.trksegbegin ('', '', kmlColor(0), 'absolute') 
-    kml.pt(55.47, 10.33, 0.0)
-    kml.pt(55.47, 10.34, 0.0)
-    kml.pt(55.48, 10.34, 0.0)
-    kml.pt(55.47, 10.33, 0.0)
-    kml.trksegend()
+    f = open(file,'r')
+
+    line = f.readline().split("\n")[0].split("\t")
+    kml = kmlclass()
+    kml.begin(outputName+'.kml', 'Example', 'Example on the use of kmlclass', 0.7)
+    while True:
+        pLine = line
+        line = f.readline().split("\n")[0].split("\t")
+        if '' == line[0]:
+            break
+        if float(pLine[1]) != 0.0 and pLine[2] != 0.0:
+            kml.trksegbegin ('', '', kmlColor(0), 'absolute')
+            kml.pt(float(pLine[1]), float(pLine[2]), 0.0)
+            kml.pt(float(line[1]), float(line[2]), 0.0)
+            kml.trksegend()
     kml.end()
 
-f = open("Week 11 - ex6/input/gps_data_1583748176.57617.txt",'r')
-
-print(f.readline().split("\n")[0].split("\t"))
-
-while True:
-    line = f.readline().split("\n")[0].split("\t")
-    if not line:
-        break
-    print(line)
+kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "track1")
+kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "track2")
+#print(line)
