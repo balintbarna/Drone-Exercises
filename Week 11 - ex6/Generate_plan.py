@@ -1,7 +1,13 @@
 import json
+from math import atan2, degrees
 
 class plan_generator():
-    def __init__(self):
+    def __init__(self, data):
+        self.data = data
+        for i in range(0, len(data)-2):
+            self.data[i].append(self.getAngle(data[i+1],data[i]))
+        self.data[len(data)-1].append(self.data[len(data)-2][2])
+
         self.plan = {}
         self.items = []
         self.plan['fileType'] = 'Plan'
@@ -16,6 +22,15 @@ class plan_generator():
         rallyPoints['points'] = [] 
         rallyPoints['version'] = 1 
         self.plan['rallyPoints'] = rallyPoints
+
+    def getAngle(self,posS,posT):
+        return degrees(atan2(posT[1]-posS[1],posT[0]-posS[0]))
+
+    def minimizeDisErr(self):
+        print("Plz make this")
+
+    def minimizeAngErr(self):
+        print("Plz make this")
 
     def addItem(self,command,doJumpId,frame,lat,lon):
         item = {}
