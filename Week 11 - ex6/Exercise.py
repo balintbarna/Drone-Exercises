@@ -70,17 +70,19 @@ def removeOutlier(file,outputName):
                         outF.write(full_text)
 
 def simplifyTrack(file):
-    lat=[]
-    lon=[]
+    eVal=[]
+    nVal=[]
+    uc = utmconv()
     f = open(file,'r')
     while True:
         line = f.readline().split("\n")[0].split("\t")
         if '' == line[0]:
             break
-        lat.append(float(line[1]))
-        lon.append(float(line[2]))
+        (hemisphere1, zone1, letter1, e1, n1) = uc.geodetic_to_utm(float(line[1]),float(line[2]))
+        eVal.append(float(e1))
+        nVal.append(float(n1))
 
-    plan = pgen(lat,lon)
+    plan = pgen(eVal,nVal)
     plan.minimizeDisErr()
 
     print("Not complete")

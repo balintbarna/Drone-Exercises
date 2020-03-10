@@ -2,9 +2,9 @@ import json
 from math import atan2, degrees
 
 class plan_generator():
-    def __init__(self, allLat,allLon):
-        self.allLat = allLat
-        self.allLon = allLon
+    def __init__(self, alleVal,allnVal):
+        self.alleVal = alleVal
+        self.allnVal = allnVal
 
         self.plan = {}
         self.items = []
@@ -25,6 +25,7 @@ class plan_generator():
         return degrees(atan2(posT[1]-posS[1],posT[0]-posS[0]))
 
     def minimizeDisErr(self):
+
         print("Plz make this")
 
     def minimizeAngErr(self):
