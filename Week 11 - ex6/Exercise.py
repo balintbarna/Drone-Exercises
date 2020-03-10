@@ -55,30 +55,28 @@ def removeOutlier(file,outputName):
     f = open(file,'r')
     line = f.readline().split("\n")[0].split("\t")
     pLine = line
-    kml = kmlclass()
-    kml.begin(outputName+'.kml', 'Example', 'Example on the use of kmlclass', 0.7)
-    kml.trksegbegin ('', '', kmlColor(0), 'absolute')
-
-    while True:
-        newLine = f.readline().split("\n")[0].split("\t")
-        if '' == newLine[0]:
-            break
-        if isNew(pLine,newLine):
-            pLine = line
-            line = newLine
-            if float(pLine[1]) != 0.0 and pLine[2] != 0.0:
-                if distance(pLine,line):
-                    kml.pt(float(line[1]), float(line[2]), 0.0)
-    kml.trksegend()
-    kml.end()
+    with open(outputName, 'w') as outF:
+        while True:
+            newLine = f.readline().split("\n")[0].split("\t")
+            if '' == newLine[0]:
+                break
+            if isNew(pLine,newLine):
+                pLine = line
+                line = newLine
+                if float(pLine[1]) != 0.0 and pLine[2] != 0.0:
+                    if distance(pLine,line):
+                        full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
+                        outF.write(full_text)
 
 def simplifyTrack():
     print("Not complete")
 
-#kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "track1")
-#kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "track2")
-#removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "clean1")
-#removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "clean2")
-simplifyTrack()
+kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
+kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/track2")
+removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/input/gps_data_1_clean.txt")
+removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/input/gps_data_2_clean.txt")
+kmlPlot("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/track1clean")
+kmlPlot("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/track2clean")
+#simplifyTrack()
 
 #print(line)
