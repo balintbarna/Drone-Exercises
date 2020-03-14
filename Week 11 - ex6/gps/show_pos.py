@@ -72,7 +72,7 @@ class pos_node:
 		self.program_start_time = rospy.get_time()
 		rospy.sleep(1)
 
-	def printPos(self):
+	def print_pos(self):
 		now = rospy.get_time()
 
 		# update last_heard
@@ -100,7 +100,7 @@ class pos_node:
 		print('Altitude:           {0}'.format(alt_text))
 		print('\n')
 	
-	def saveToFile(self):
+	def save_to_file(self):
 		filename = 'output/gps_data_%02.5f.txt' % (self.program_start_time)
 		full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (self.pos_timestamp, self.lat, self.lon, self.alt)
 		with open(filename, 'a') as file:
@@ -115,13 +115,13 @@ class pos_node:
 		self.lat = msg.lat
 		self.lon = msg.lon
 		self.alt = msg.alt
-		self.saveToFile()
+		self.save_to_file()
 
 	def run(self):
 		# loop until shutdown
 		while not (rospy.is_shutdown()):
 			# do stuff
-			self.printPos()
+			self.print_pos()
 
 			# sleep the defined interval
 			self.rate.sleep()
