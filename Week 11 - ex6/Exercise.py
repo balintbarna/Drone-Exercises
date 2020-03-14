@@ -1,5 +1,4 @@
-from OldCode.transverse_mercator import tranmerc
-from OldCode.utm import utmconv
+from mercator.utm import utmconv
 from math import pi, cos, asin, sqrt, sin
 import matplotlib.pyplot as plt
 import numpy as np

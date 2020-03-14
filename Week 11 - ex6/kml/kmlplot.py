@@ -1,7 +1,7 @@
 try:
     from kml.exportkml import kmlclass  # "app" case
 except:
-    from exportkml import kmlclass                   # "__main__" case
+    from exportkml import kmlclass      # "__main__" case
 
 def kml_color(val):
     # color: red,green,blue,cyan,yellow,grey,red_poly,yellow_poly,green_poly

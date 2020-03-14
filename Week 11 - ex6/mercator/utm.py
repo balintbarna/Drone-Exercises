@@ -55,8 +55,10 @@ Revision
 
 # imports
 from math import pi
-#from transverse_mercator import tranmerc
-from OldCode.transverse_mercator import tranmerc
+try:
+    from mercator.transverse_mercator import tranmerc	# "app" case
+except:
+    from transverse_mercator import tranmerc			# "__main__" case
 
 # WGS-84 defines
 wgs84_a = 6378137.0 # WGS84 semi-major axis of ellipsoid [m]

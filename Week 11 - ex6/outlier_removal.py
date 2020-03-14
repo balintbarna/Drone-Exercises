@@ -1,6 +1,6 @@
 from math import pi, cos, asin, sqrt, sin
 import numpy as np
-from OldCode.utm import utmconv
+from mercator.utm import utmconv
 
 def coords_not_equal(p1, p2):
     if float(p1[1]) != float(p2[1]) or float(p1[2]) != float(p2[2]):
