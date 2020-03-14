@@ -1,6 +1,7 @@
 from math import pi, cos, asin, sqrt, sin
 import numpy as np
 from mercator.utm import utmconv
+from gps.data_helper import *
 
 def coords_not_equal(p1, p2):
     if float(p1[1]) != float(p2[1]) or float(p1[2]) != float(p2[2]):
@@ -26,16 +27,6 @@ def inliers(p1, p2):
 
 def coords_not_zero(point):
     return float(point[1]) != 0.0 and point[2] != 0.0
-
-def get_data(file):
-    return file.readline().split("\n")[0].split("\t")
-
-def write_data(file, line):
-    full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
-    file.write(full_text)
-
-def empty_line(line):
-    return '' == line[0]
 
 def remove_outliers(input_path,output_path):
     print("removing outliers for " + input_path)
