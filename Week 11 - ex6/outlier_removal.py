@@ -20,23 +20,31 @@ def distance_is_ok(distance):
         return True
     return False
 
-def should_keep(p1, p2):
+def inliers(p1, p2):
     distance = get_distance_from_geo(p1, p2)
     return distance_is_ok(distance)
 
+def coords_not_zero(point):
+    return float(point[1]) != 0.0 and point[2] != 0.0
+
 def remove_outliers(input_path,output_path):
-    f = open(input_path,'r')
-    line = f.readline().split("\n")[0].split("\t")
-    pLine = line
-    with open(output_path, 'w') as outF:
+    input_file = open(input_path,'r')
+    line = input_file.readline().split("\n")[0].split("\t")
+    previous_line = line
+    with open(output_path, 'w') as output_file:
         while True:
-            newLine = f.readline().split("\n")[0].split("\t")
-            if '' == newLine[0]:
+            new_line = input_file.readline().split("\n")[0].split("\t")
+            if '' == new_line[0]:
                 break
-            if coords_not_equal(pLine,newLine):
-                pLine = line
-                line = newLine
-                if float(pLine[1]) != 0.0 and pLine[2] != 0.0:
-                    if should_keep(pLine,line):
+            if coords_not_equal(previous_line,new_line):
+                previous_line = line
+                line = new_line
+                if coords_not_zero(previous_line):
+                    if inliers(previous_line,line):
                         full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
-                        outF.write(full_text)
+                        output_file.write(full_text)
+
+if __name__ == "__main__":
+    # test functions
+    remove_outliers("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/gps_data_1_clean.txt")
+    remove_outliers("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/gps_data_2_clean.txt")
