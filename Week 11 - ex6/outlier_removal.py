@@ -28,6 +28,7 @@ def coords_not_zero(point):
     return float(point[1]) != 0.0 and point[2] != 0.0
 
 def remove_outliers(input_path,output_path):
+    print("removing outliers for " + input_path)
     input_file = open(input_path,'r')
     line = input_file.readline().split("\n")[0].split("\t")
     previous_line = line
