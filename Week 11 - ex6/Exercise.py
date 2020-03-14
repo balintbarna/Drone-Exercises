@@ -3,19 +3,31 @@ from math import pi, cos, asin, sqrt, sin
 import matplotlib.pyplot as plt
 import numpy as np
 from Generate_plan import plan_generator as pgen
-import outlier_removal
 import kml.kmlplot as kmlplot
+import outlier_removal
+import track_simplifier
 
 def main():
     print("main started")
-    # kmlplot.plot_kml("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
-    # kmlplot.plot_kml("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/track2")
-    # outlier_removal.remove_outliers("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/gps_data_1_clean.txt")
-    # outlier_removal.remove_outliers("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/gps_data_2_clean.txt")
-    # kmlPlot("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/track1clean")
-    # kmlPlot("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/track2clean")
-    # simplifyTrack("Week 11 - ex6/input/gps_data_1_clean.txt")
-    # simplifyTrack()
+    recorded_path_1 = "Week 11 - ex6/input/gps_data_1583748176.57617.txt"
+    recorded_path_2 = "Week 11 - ex6/input/gps_data_1583749050.86728.txt"
+    kmlplot.plot_kml(recorded_path_1, "Week 11 - ex6/output/track1")
+    kmlplot.plot_kml(recorded_path_2, "Week 11 - ex6/output/track2")
+
+    clean_path_1 = "Week 11 - ex6/output/gps_data_1_clean.txt"
+    clean_path_2 = "Week 11 - ex6/output/gps_data_2_clean.txt"
+    outlier_removal.remove_outliers(recorded_path_1, clean_path_1)
+    outlier_removal.remove_outliers(recorded_path_2, clean_path_2)
+    kmlplot.plot_kml(clean_path_1, "Week 11 - ex6/output/track1clean")
+    kmlplot.plot_kml(clean_path_2, "Week 11 - ex6/output/track2clean")
+
+    simp_path_1 = "Week 11 - ex6/output/gps_data_1_simp.txt"
+    simp_path_2 = "Week 11 - ex6/output/gps_data_2_simp.txt"
+    config = (-1, 0.1, -1)
+    track_simplifier.simplify_track(clean_path_1, simp_path_1, config)
+    track_simplifier.simplify_track(clean_path_2, simp_path_2, config)
+    kmlplot.plot_kml(simp_path_1, "Week 11 - ex6/output/track1simp")
+    kmlplot.plot_kml(simp_path_2, "Week 11 - ex6/output/track2simp")
     print("main ended")
 
 def plotPath(v1,v2):
