@@ -27,14 +27,21 @@ def inliers(p1, p2):
 def coords_not_zero(point):
     return float(point[1]) != 0.0 and point[2] != 0.0
 
+def get_data(file):
+    return file.readline().split("\n")[0].split("\t")
+
+def write_data(file, line):
+    full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
+    file.write(full_text)
+
 def remove_outliers(input_path,output_path):
     print("removing outliers for " + input_path)
     input_file = open(input_path,'r')
-    line = input_file.readline().split("\n")[0].split("\t")
+    line = get_data(input_file)
     previous_line = line
     with open(output_path, 'w') as output_file:
         while True:
-            new_line = input_file.readline().split("\n")[0].split("\t")
+            new_line = get_data(input_file)
             if '' == new_line[0]:
                 break
             if coords_not_equal(previous_line,new_line):
@@ -42,8 +49,8 @@ def remove_outliers(input_path,output_path):
                 line = new_line
                 if coords_not_zero(previous_line):
                     if inliers(previous_line,line):
-                        full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
-                        output_file.write(full_text)
+                        write_data(output_file, line)
+    print("inliers saved in " + output_path)
 
 if __name__ == "__main__":
     # test functions
