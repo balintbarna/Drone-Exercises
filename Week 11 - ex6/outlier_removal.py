@@ -34,6 +34,9 @@ def write_data(file, line):
     full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
     file.write(full_text)
 
+def empty_line(line):
+    return '' == line[0]
+
 def remove_outliers(input_path,output_path):
     print("removing outliers for " + input_path)
     input_file = open(input_path,'r')
@@ -42,14 +45,14 @@ def remove_outliers(input_path,output_path):
     with open(output_path, 'w') as output_file:
         while True:
             new_line = get_data(input_file)
-            if '' == new_line[0]:
+            if empty_line(new_line):
                 break
-            if coords_not_equal(previous_line,new_line):
+            if coords_not_equal(previous_line, new_line):
                 previous_line = line
                 line = new_line
                 if coords_not_zero(previous_line):
-                    if inliers(previous_line,line):
-                        write_data(output_file, line)
+                    if inliers(previous_line, new_line):
+                        write_data(output_file, new_line)
     print("inliers saved in " + output_path)
 
 if __name__ == "__main__":
