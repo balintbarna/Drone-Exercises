@@ -35,20 +35,17 @@ def simplify_track(input_path, output_path, config):
     config : tuple
         must contain the following:
 
-        max_acceleration : float
         max_distance_diff : float
-        max_orientation_diff : float
+        max_angular_diff : float
 
         -1 means disabled criteria
     """
     print("simplifying track for " + input_path)
     print("parameters:")
-    maxacc = config[0]
-    maxdist = config[1]
-    maxori = config[2]
-    print("maximum acceleration     \t"+("disabled" if maxacc < 0 else str(maxacc)))
-    print("maximum distance error   \t"+("disabled" if maxdist < 0 else str(maxdist)))
-    print("maximum orientation error\t"+("disabled" if maxori < 0 else str(maxori)))
+    maxdist = config[0]
+    maxang = config[1]
+    print("maximum distance error\t"+("disabled" if maxdist < 0 else str(maxdist)))
+    print("maximum angular error \t"+("disabled" if maxang < 0 else str(maxang)))
 
     incount = 0
     outcount = 0
@@ -87,6 +84,6 @@ def simplify_track(input_path, output_path, config):
 
 if __name__ == "__main__":
     # test functions
-    config = (-1, 0.1, -1)
+    config = (0.1, -1)
     simplify_track("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/gps_data_1_simp.txt", config)
     simplify_track("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/gps_data_2_simp.txt", config)

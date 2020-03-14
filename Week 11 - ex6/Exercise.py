@@ -23,7 +23,7 @@ def main():
 
     simp_path_1 = "Week 11 - ex6/output/gps_data_1_simp.txt"
     simp_path_2 = "Week 11 - ex6/output/gps_data_2_simp.txt"
-    config = (-1, 0.1, -1)
+    config = (0.1, -1)
     track_simplifier.simplify_track(clean_path_1, simp_path_1, config)
     track_simplifier.simplify_track(clean_path_2, simp_path_2, config)
     kmlplot.plot_kml(simp_path_1, "Week 11 - ex6/output/track1simp")
