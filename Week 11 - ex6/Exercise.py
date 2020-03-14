@@ -5,6 +5,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from OldCode.exportkml import kmlclass
 from Generate_plan import plan_generator as pgen
+import outlier_removal
+
+def main():
+    #kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
+    #kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/track2")
+    outlier_removal.remove_outliers("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/gps_data_1_clean.txt")
+    outlier_removal.remove_outliers("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/gps_data_2_clean.txt")
+    #kmlPlot("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/track1clean")
+    #kmlPlot("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/track2clean")
+    # simplifyTrack("Week 11 - ex6/input/gps_data_1_clean.txt")
+    #simplifyTrack()
 
 def plotPath(v1,v2):
     plt.plot(v1, v2)
@@ -38,37 +49,6 @@ def kmlPlot(file, outputName):
             kml.trksegend()
     kml.end()
 
-def distance(p1,p2):
-    uc = utmconv()
-    (hemisphere1, zone1, letter1, e1, n1) = uc.geodetic_to_utm(float(p1[1]),float(p1[2]))
-    (hemisphere2, zone2, letter2, e2, n2) = uc.geodetic_to_utm(float(p2[1]),float(p2[2]))
-    dis=sqrt((e1-e2)*(e1-e2)+(n1-n2)*(n1-n2))
-    if dis != 0.0 and dis < 2:
-        return True
-    return False
-
-def isNew(old,new):
-    if float(old[1]) != float(new[1]) or float(old[2]) != float(new[2]):
-        return True
-    return False
-
-def removeOutlier(file,outputName):
-    f = open(file,'r')
-    line = f.readline().split("\n")[0].split("\t")
-    pLine = line
-    with open(outputName, 'w') as outF:
-        while True:
-            newLine = f.readline().split("\n")[0].split("\t")
-            if '' == newLine[0]:
-                break
-            if isNew(pLine,newLine):
-                pLine = line
-                line = newLine
-                if float(pLine[1]) != 0.0 and pLine[2] != 0.0:
-                    if distance(pLine,line):
-                        full_text = '%02.5f\t%02.5f\t%03.5f\t%.1f\n' % (float(line[0]), float(line[1]), float(line[2]), float(line[3]))
-                        outF.write(full_text)
-
 def simplifyTrack(file):
     eVal=[]
     nVal=[]
@@ -90,13 +70,6 @@ def simplifyTrack(file):
 def makePlan():
     print("Not complete")
 
-#kmlPlot("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/output/track1")
-#kmlPlot("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/output/track2")
-#removeOutlier("Week 11 - ex6/input/gps_data_1583748176.57617.txt", "Week 11 - ex6/input/gps_data_1_clean.txt")
-#removeOutlier("Week 11 - ex6/input/gps_data_1583749050.86728.txt", "Week 11 - ex6/input/gps_data_2_clean.txt")
-#kmlPlot("Week 11 - ex6/input/gps_data_1_clean.txt", "Week 11 - ex6/output/track1clean")
-#kmlPlot("Week 11 - ex6/input/gps_data_2_clean.txt", "Week 11 - ex6/output/track2clean")
-simplifyTrack("Week 11 - ex6/input/gps_data_1_clean.txt")
-#simplifyTrack()
 
-#print(line)
+if __name__ == "__main__":
+    main()
