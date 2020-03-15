@@ -23,11 +23,19 @@ def main():
 
     simp_path_1 = "Week 11 - ex6/output/gps_data_1_simp.txt"
     simp_path_2 = "Week 11 - ex6/output/gps_data_2_simp.txt"
-    config = (0.1, -1)
+    config = (0.3, -1)
     track_simplifier.simplify_track(clean_path_1, simp_path_1, config)
     track_simplifier.simplify_track(clean_path_2, simp_path_2, config)
     kmlplot.plot_kml(simp_path_1, "Week 11 - ex6/output/track1simp")
     kmlplot.plot_kml(simp_path_2, "Week 11 - ex6/output/track2simp")
+
+    simp_rdp_path_1 = "Week 11 - ex6/output/gps_data_1_simp_rdp.txt"
+    simp_rdp_path_2 = "Week 11 - ex6/output/gps_data_2_simp_rdp.txt"
+    treshold = 0.7
+    track_simplifier.simplify_track_rdp(clean_path_1, simp_rdp_path_1, treshold)
+    track_simplifier.simplify_track_rdp(clean_path_2, simp_rdp_path_2, treshold)
+    kmlplot.plot_kml(simp_rdp_path_1, "Week 11 - ex6/output/track1simprdp")
+    kmlplot.plot_kml(simp_rdp_path_2, "Week 11 - ex6/output/track2simprdp")
     print("main ended")
 
 def plotPath(v1,v2):
