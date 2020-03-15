@@ -69,7 +69,7 @@ def Qplan(file):
 
     plan_json = json.dumps(plan, indent=4, sort_keys=True)
 
-    file = open('mission_test.plan','w') 
+    file = open('/home/owais/Desktop/RMUAST/Drones code/drone_intro_exercises/Week 11 - ex6/output/mission.plan','w') 
     file.write (plan_json)
     file.close()
 

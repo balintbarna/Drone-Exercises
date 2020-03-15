@@ -6,6 +6,7 @@ from Generate_plan import plan_generator as pgen
 import kml.kmlplot as kmlplot
 import outlier_removal
 import track_simplifier
+import Q_plan
 
 def main():
     print("main started")
@@ -36,6 +37,9 @@ def main():
     track_simplifier.simplify_track_rdp(clean_path_2, simp_rdp_path_2, treshold)
     kmlplot.plot_kml(simp_rdp_path_1, "Week 11 - ex6/output/track1simprdp")
     kmlplot.plot_kml(simp_rdp_path_2, "Week 11 - ex6/output/track2simprdp")
+
+    ############################################
+    Q_plan.Qplan("/home/owais/Desktop/RMUAST/Drones code/drone_intro_exercises/Week 11 - ex6/output/gps_data_2_clean.txt")
     print("main ended")
 
 def plotPath(v1,v2):
