@@ -39,7 +39,7 @@ def main():
     kmlplot.plot_kml(simp_rdp_path_2, "Week 11 - ex6/output/track2simprdp")
 
     ############################################
-    Q_plan.Qplan("/home/owais/Desktop/RMUAST/Drones code/drone_intro_exercises/Week 11 - ex6/output/gps_data_2_clean.txt")
+    Q_plan.Qplan("Week 11 - ex6/output/gps_data_2_clean.txt")
     print("main ended")
 
 def plotPath(v1,v2):
