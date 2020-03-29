@@ -5,15 +5,15 @@ import matplotlib.pyplot as plt
 
 def main():
     # load accel data
-    acceleration = data_loader(paths.SENSOR_COMBINED,debug = True)
+    acceleration = data_loader(paths.SENSOR_COMBINED_9,debug = True)
     acceleration.loadCSV_accel()
     
     # read trigger data
-    trigger = data_loader(paths.MANUAL_CONTROLLED_SETPOINT,debug = True)
+    trigger = data_loader(paths.MANUAL_CONTROLLED_SETPOINT_9,debug = True)
     trigger.loadCSV_para()
 
     # read velocity data
-    vel = data_loader(paths.VELOCITY,debug=True)
+    vel = data_loader(paths.VELOCITY_9,debug=True)
     vel.loadVelocity_data()
 
     # detect failure
