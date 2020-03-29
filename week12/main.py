@@ -1,7 +1,8 @@
+import matplotlib.pyplot as plt
+import data_reader.paths as paths
 from data_reader.data_reader import data_loader
 import failure_detection
-import data_reader.paths as paths
-import matplotlib.pyplot as plt
+import impact_energy
 
 def main():
     # load accel data
@@ -13,8 +14,23 @@ def main():
     trigger.loadCSV_para()
 
     # read velocity data
-    vel = data_loader(paths.VELOCITY_9,debug=True)
-    vel.loadVelocity_data()
+    velocity = data_loader(paths.VELOCITY_9,debug=True)
+    velocity.loadVelocity_data()
+
+    print(velocity.velocity_down)
+    print(impact_energy.get_impact_velocity(velocity))
+    print(impact_energy.calculate_impact_energy(velocity))
+    # plot_down_velocity(velocity)
+    # plot_acceleration_error(acceleration, trigger)
+
+def plot_down_velocity(velocity: data_loader):
+    fig, ax = plt.subplots()
+    ax.plot(velocity.velocity_timestamps, velocity.velocity_down, linewidth=0.5, label='down_vel')
+    legend = ax.legend(loc='best', shadow=True, fontsize='medium')
+    ax.grid()
+    plt.show()
+
+def plot_acceleration_error(acceleration: data_loader, trigger: data_loader):
 
     # detect failure
     failure_time = failure_detection.freefall_detect(acceleration.Accelerometer_total, acceleration.TimestampS, 10)
@@ -31,6 +47,7 @@ def main():
     legend = ax.legend(loc='best', shadow=True, fontsize='medium')
     ax.grid()
     plt.show()
+
 
 
 if __name__ == "__main__":
