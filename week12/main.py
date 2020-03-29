@@ -14,14 +14,18 @@ def main():
     trigger.loadCSV_para()
 
     # read velocity data
-    velocity = data_loader(paths.VELOCITY_9,debug=True)
-    velocity.loadVelocity_data()
+    print_impact_energy(paths.VELOCITY_5)
+    print_impact_energy(paths.VELOCITY_8)
+    print_impact_energy(paths.VELOCITY_9)
 
-    print(velocity.velocity_down)
-    print(impact_energy.get_impact_velocity(velocity))
-    print(impact_energy.calculate_impact_energy(velocity))
-    # plot_down_velocity(velocity)
     # plot_acceleration_error(acceleration, trigger)
+
+def print_impact_energy(velocity_path):
+    print("calculating impact energy for:")
+    print(velocity_path)
+    velocity = data_loader(velocity_path)
+    velocity.loadVelocity_data()
+    print(impact_energy.calculate_impact_energy(velocity))
 
 def plot_down_velocity(velocity: data_loader):
     fig, ax = plt.subplots()
