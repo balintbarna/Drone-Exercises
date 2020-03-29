@@ -1,0 +1,1 @@
+Run *main.py* from *week12* folder

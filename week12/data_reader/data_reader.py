@@ -22,7 +22,7 @@ from math import sqrt, pow
 ### Class start
 class data_loader():
     def __init__(self, inFileName, debug = False):
-        self.fileName = inFileName;
+        self.fileName = inFileName
 
         # Prepare containers for the data
         self.TimestampS = []
@@ -127,18 +127,6 @@ class data_loader():
                 att=(float(row['q[0]']),float(row['q[1]']),float(row['q[2]']),float(row['q[3]']))
                 self.attitude.append(att)
 
-def freefall_detect(acc_total,acc_time):
-    for i in range(len(acc_total)):
-        if i>=len(acc_total):
-            break
-        avg=(acc_total[max(0,i-2)]+acc_total[i-1]+acc_total[i]) /3
-        rate=abs(acc_total[i]-avg)
-        #rate= (abs(acc_total[i+1] - acc_total[i]))
-        if rate >= 25:
-            print("Fall Detected at: "+str(acc_time[i])+" seconds!")
-            break
-
-
 ### Class end - Main start
 
 if __name__ == '__main__':
@@ -169,8 +157,6 @@ if __name__ == '__main__':
     att=data_loader('../csv_files/TEST9_08-02-19/TEST9_08-02-19_vehicle_attitude_0.csv'
     ,debug=True)
     att.loadCSV_attitude()
-    #Calling function for fall detection
-    freefall_detect(reader.Accelerometer_total,reader.TimestampS)
     # Here you can add the analysis of the different parameters and create boolean variables that triggers upon failure detection.
     # You can likewise plot these failure detection parameters (with the same timestamp as the investigated dataset) together with the logged data.
 
